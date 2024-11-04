@@ -124,7 +124,7 @@ namespace TodoItems.Core.Tests
         public async Task Modify_ShouldReturnNull_WhenDescriptionAndDueDateAreNull()
         {
             // Act
-            var result = await _service.Modify("1", null, null);
+            var result = await _service.ModifyAsync("1", null, null);
 
             // Assert
             Assert.IsNull(result);
@@ -137,7 +137,7 @@ namespace TodoItems.Core.Tests
             _mockRepository.Setup(repo => repo.FindByIdAsync(It.IsAny<string>())).ReturnsAsync((TodoItem)null);
 
             // Act
-            var result = await _service.Modify("1", "New Description", DateOnly.FromDateTime(DateTime.Now));
+            var result = await _service.ModifyAsync("1", "New Description", DateOnly.FromDateTime(DateTime.Now));
 
             // Assert
             Assert.IsNull(result);
@@ -151,7 +151,7 @@ namespace TodoItems.Core.Tests
             _mockRepository.Setup(repo => repo.FindByIdAsync(It.IsAny<string>())).ReturnsAsync(todoItem);
 
             // Act
-            var result = await _service.Modify("1", "New Description", null);
+            var result = await _service.ModifyAsync("1", "New Description", null);
 
             // Assert
             Assert.IsNotNull(result);
@@ -168,7 +168,7 @@ namespace TodoItems.Core.Tests
 
             // Act
             var newDueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(1));
-            var result = await _service.Modify("1", null, newDueDate);
+            var result = await _service.ModifyAsync("1", null, newDueDate);
 
             // Assert
             Assert.IsNotNull(result);
@@ -185,7 +185,7 @@ namespace TodoItems.Core.Tests
 
             // Act
             var newDueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(1));
-            var result = await _service.Modify("1", "New Description", newDueDate);
+            var result = await _service.ModifyAsync("1", "New Description", newDueDate);
 
             // Assert
             Assert.IsNotNull(result);

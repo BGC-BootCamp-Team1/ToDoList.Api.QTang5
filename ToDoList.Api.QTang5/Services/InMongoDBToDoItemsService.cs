@@ -19,7 +19,7 @@ namespace ToDoList.Api.Services
                 ToDoItemStoreDatabaseSettings.Value.DatabaseName);
 
             _MongoDBToDoItemsCollection = mongoDatabase.GetCollection<MongoDBToDoItem>(
-                ToDoItemStoreDatabaseSettings.Value.CollectionName);
+                ToDoItemStoreDatabaseSettings.Value.TodoItemsCollectionName);
         }
         public async Task CreateAsync(ToDoItemDto toDoItem)
         {

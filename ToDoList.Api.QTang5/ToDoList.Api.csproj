@@ -7,10 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.29.0" />
+    <PackageReference Include="MongoDB.Driver" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
   <ItemGroup>
 	<InternalsVisibleTo Include="../ToDoListTest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\V2\TodoItem.Infrastructure\TodoItem.Infrastructure.csproj" />
+    <ProjectReference Include="..\V2\TodoItems.Core\TodoItems.Core.csproj" />
   </ItemGroup>
 </Project>
