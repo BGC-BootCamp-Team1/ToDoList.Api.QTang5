@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ToDoList.Api.ApiTests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Testing"
+      }
+    }
+  }
+}
