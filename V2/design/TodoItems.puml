@@ -1,0 +1,88 @@
+@startuml
+
+
+package Domain {
+    class TodoItemService {
+        - _todosRepository: ITodosRepository
+        + TodoItems: List<TodoItem>
+        + CreateAsync(description: string, dueDate: DateOnly?, createOption: CreateOptionEnum): Task<TodoItem>
+    }
+
+    class TodoItem {
+        + userId: string
+        + id: string
+        + description: string
+        + createTime: DateOnly
+        + DueDate: DateOnly
+        + Tags: List<Tag>
+        + ModificationHistory: List<Modification>
+        + ModifyItem(description: string): void
+    }
+
+    class Modification {
+        + timestamp: DateOnly
+    }
+
+    interface ITodosRepository {
+        + FindByIdAsync(id: string?): Task<TodoItem>
+        + CountTodoItemsByDueDate(dueDate: DateOnly): int
+        + SaveAsync(todoItem: TodoItem): Task
+    }
+
+    class Tag {
+        - Title: string
+    }
+    class User {
+        + userId: string
+}
+    interface ICreateTodoStrategy {
+    + Create(description: string, dueDate: DateOnly?, todosRepository: ITodosRepository): TodoItem
+}
+
+class ManualStrategy {
+    + Create(description: string, dueDate: DateOnly?, todosRepository: ITodosRepository): TodoItem
+}
+
+class MostAvailableInFiveDaysStrategy {
+    + Create(description: string, dueDate: DateOnly?, todosRepository: ITodosRepository): TodoItem
+}
+
+class NextAvailableInFiveDaysStrategy {
+    + Create(description: string, dueDate: DateOnly?, todosRepository: ITodosRepository): TodoItem
+}
+}
+
+package Controller {
+   
+}
+
+package Infrastructure {
+    class TodoItemPo {
+        + Id: string
+        + Description: string
+        + IsComplete: bool
+        + DueDate: DateOnly
+        + CreateTime: DateOnly
+        + ConvertToTodoItem(): TodoItem
+    }
+
+    class TodoItemMongoRepository {
+        - _todosCollection: IMongoCollection<TodoItemPo?>
+        + FindByIdAsync(id: string?): Task<TodoItem>
+        + CountTodoItemsByDueDate(dueDate: DateOnly): int
+        + SaveAsync(todoItem: TodoItem): Task
+    }
+}
+
+TodoItem "1" -- "0..*" Modification
+TodoItemService "1" -- "0..*" TodoItem
+TodoItemService "1" -- "1" ITodosRepository
+User "1" -- "0..*" TodoItem
+TodoItemMongoRepository --|> ITodosRepository
+TodoItemMongoRepository -- "1" TodoItemPo
+TodoItem -- "0..*" Tag
+TodoItemService "1" -- "1..*" ICreateTodoStrategy
+ManualStrategy --|> ICreateTodoStrategy
+MostAvailableInFiveDaysStrategy --|> ICreateTodoStrategy
+NextAvailableInFiveDaysStrategy --|> ICreateTodoStrategy
+@enduml

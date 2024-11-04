@@ -1,0 +1,25 @@
+@startuml
+actor User
+
+User -> TodoItemService: CreateAsync(description, dueDate, createOption)
+activate TodoItemService
+
+TodoItemService -> ITodosRepository: FindByIdAsync(id)
+activate ITodosRepository
+ITodosRepository --> TodoItemService: TodoItem
+deactivate ITodosRepository
+
+TodoItemService -> ICreateTodoStrategy: Create(description, dueDate, ITodosRepository)
+activate ICreateTodoStrategy
+ICreateTodoStrategy --> TodoItemService: TodoItem
+deactivate ICreateTodoStrategy
+
+TodoItemService -> ITodosRepository: SaveAsync(todoItem)
+activate ITodosRepository
+ITodosRepository --> TodoItemService: void
+deactivate ITodosRepository
+
+TodoItemService --> User: Task<TodoItem>
+deactivate TodoItemService
+
+@enduml
