@@ -24,7 +24,7 @@ namespace ToDoList.Api.Models
                     Description = this.Description,
                     Done = this.Done
                 };
-        }
+            }
         
         }
     
