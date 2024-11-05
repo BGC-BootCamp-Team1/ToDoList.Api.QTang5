@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 //configure DB settings
 builder.Services.Configure<ToDoItemDatabaseSettings>(builder.Configuration.GetSection("ToDoItemDatabase"));
-
+builder.Services.Configure<TodoStoreDatabaseSettings>(builder.Configuration.GetSection("ToDoItemDatabase"));
 // Add services to the container.
 
 builder.Services.AddControllers();
