@@ -30,6 +30,15 @@ public class TodoItem
     }
     public void ModifyItem(string modifiedDescription)
     {
+        try
+        {
+            bool v = ModificationHistory.Count(m => m.TimesStamp == DateOnly.FromDateTime(DateTime.Today)) < Constant.MAX_MODIFICATION_PER_TODOITEM_PER_DAY;
+
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+
+        }
         if (ModificationHistory.Count(m => m.TimesStamp == DateOnly.FromDateTime(DateTime.Today)) < Constant.MAX_MODIFICATION_PER_TODOITEM_PER_DAY)
         {
             ModificationHistory.Add(new Modification());

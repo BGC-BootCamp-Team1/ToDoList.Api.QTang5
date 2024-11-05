@@ -38,6 +38,7 @@ public class TodoItemMongoRepository : ITodosRepository
             IsComplete = todoItem.IsComplete,
             DueDate = todoItem.DueDate,
             CreateTime = todoItem.CreateTime,
+            ModificationHistory = []
         };
         FilterDefinition<TodoItemPo?> filter = Builders<TodoItemPo>.Filter.Eq(x => x.Id, todoItem.Id);
         bool isNewTodo = await _todosCollection.Find(filter).FirstOrDefaultAsync() == null ? true : false;
